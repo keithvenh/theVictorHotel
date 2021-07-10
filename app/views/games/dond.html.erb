@@ -124,6 +124,40 @@
 
     </div>
 
+    <div class="offer-box" id="offer-box">
+
+        <div class="offer">
+
+            <p>$10,000</p>
+
+        </div>
+
+    </div>
+
+    <div class="buttons">
+        <div class="dond-buttons">
+
+            <div class="deal-button" id="deal-button">
+
+                <p>Deal!</p>
+
+            </div>
+
+            <div class="no-deal-button" id="no-deal-button">
+
+                <p>No Deal!</p>
+
+            </div>
+
+        </div>
+
+        <div class="banker-button" id="banker-button">
+
+            <p>Get Bank Offer!</p>
+
+        </div> 
+    </div>
+
 </div>
 
 <div class="cases">
@@ -237,6 +271,9 @@
 <script>
 
     var amounts = [0.01, 1, 5, 10, 25, 50, 75, 100, 200, 300, 400, 500, 750, 1000, 5000, 10000, 25000, 50000, 75000, 100000, 200000, 300000, 400000, 500000, 750000, 1000000]
+    var currentOffer = false;
+    var caseValue = false;
+    var round = 1;
 
     var post = function(text) {
 
@@ -254,6 +291,79 @@
         textBox.prepend(para);
     }
 
+    var getBankOffer = function() {
+        
+        var total = caseValue;
+        var lowSum = 0;
+        var highSum = 0;
+        var factors = [0.07, 0.09, 0.13, 0.17, 0.2, 0.25, 0.33, 0.5, 0.5];
+        var highFactors = [0.11, 0.16, 0.21, 0.26, 0.31, 0.41, 0.51, 0.61, 0.71];
+
+        if(caseValue <= 75000) {
+            lowSum += caseValue;
+        }
+        else {
+            highSum += caseValue;
+        };
+
+        for(var i = 0; i < amounts.length; i++) {
+            total += amounts[i];
+            if(amounts[i] <= 75000) {
+                lowSum += amounts[i];
+            }
+            else {
+                highSum += amounts[i];
+            };
+        }
+
+        var e = total/(amounts.length + 1);
+        var c = amounts.length + 1;
+        var m = amounts[amounts.length -1];
+        if(m < caseValue) {
+            m = caseValue;
+        }
+        
+        console.log(lowSum);
+        console.log(highSum);
+        var offer = (lowSum * factors[round-1]) + ((highSum * factors[round-1]) * highFactors[round-1]);
+        offer = Math.round(offer);
+        var div = document.createElement("div");
+        var para = document.createElement("p");
+        var node = document.createTextNode("$ " + offer.toLocaleString());
+        post("You have just been offered $" + offer.toLocaleString() + "! Deal? Or No Deal?");
+        div.classList.add("offer");
+        div.appendChild(para);
+        para.appendChild(node);
+        document.getElementById("offer-box").prepend(div);
+        round += 1;
+        currentOffer = offer;
+
+        return offer;
+    }
+
+    var dealTaken = function() {
+        if(currentOffer != false) {
+            post("Congratulations, you just won $" + currentOffer.toLocaleString());
+            currentOffer = false;
+            var yourCase = document.getElementById('your-case');
+            yourCase.classList.add('case-open');
+            yourCase.innerHTML = "$ " + caseValue.toLocaleString();
+        }
+        else {
+            post("You don't currently have an offer on the table. Open more cases or click \"Get Bank Offer\" ");
+        }
+    }
+
+    var noDeal = function() {
+        if(currentOffer != false) {
+            post("You just turned down $" + currentOffer.toLocaleString() + ". It's time to open more cases!");
+            currentOffer = false;
+        }
+        else {
+            post("You don't currently have an offer on the table. Open more cases or click \"Get Bank Offer\" ")
+        }
+    }
+
     var textBox = document.getElementById("text-box")
     post("Please select your case.");
 
@@ -265,8 +375,12 @@
         if(caseSelected == false) {
             caseSelected = true;
             this.classList.add("your-case");
+            this.setAttribute('id', 'your-case');
             this.removeEventListener('click', openCase);
             post("You have selected Case " + this.dataset.case);
+            var amt = Math.floor(Math.random() * 26);
+            caseValue = amounts[amt];
+            amounts.splice(amt,1)
         }
         else {
             this.classList.add("case-open");
@@ -283,5 +397,11 @@
     for (var i = 0; i < cases.length; i++) {
         cases[i].addEventListener('click', openCase, false);
     }
+
+    document.getElementById("banker-button").addEventListener('click', getBankOffer, false);
+
+    document.getElementById("deal-button").addEventListener('click', dealTaken, false);
+
+    document.getElementById("no-deal-button").addEventListener('click', noDeal, false);
 
 </script>
