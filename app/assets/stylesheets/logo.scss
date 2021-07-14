@@ -1,0 +1,43 @@
+@import "presets";
+
+
+.logo {
+    display: flex;
+    text-align: right;
+    color: $navy;
+    align-items: start;
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+}
+
+.logo.logo-white {
+    background-color: $navy;
+    color: $white;
+}
+
+.logo-the {
+    text-transform: lowercase;
+    font-size: 18px;
+    font-family: $lobster;
+    transform: rotate(-90deg);
+    display: inline-block;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    padding-right: 6px;
+    margin-right: -6px;
+}
+
+.logo-victor {
+    text-transform: uppercase;
+    font-size: 24px;
+    font-family: $orbitron;
+}
+
+.logo-hotel {
+    text-transform: uppercase;
+    font-size: 18px;
+    font-family: $poppins;
+}

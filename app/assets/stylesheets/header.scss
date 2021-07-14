@@ -1,0 +1,18 @@
+@import "presets";
+
+
+.header {
+    height: 68px;
+    width: 100vw;
+    box-sizing: border-box;
+    background-color: $navy;
+}
+.logo-container {
+    background-color: $gold;
+    display: inline-block;
+    height: 100%;
+    &:hover {
+        background-color: $white;
+        cursor: pointer;
+    }
+}

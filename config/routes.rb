@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   
-  root 'games#index'
+  root 'rooms#home'
   resources :games
   
   get '/dond', to: 'games#dond'
