@@ -6,7 +6,10 @@
     width: 100vw;
     box-sizing: border-box;
     background-color: $navy;
+    display: flex;
+    justify-content: space-evenly;
 }
+
 .logo-container {
     background-color: $gold;
     display: inline-block;

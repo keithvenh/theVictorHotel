@@ -15,5 +15,7 @@ class RoomsController < ApplicationController
     def theater
 
     end
-    
+
 end
+
+

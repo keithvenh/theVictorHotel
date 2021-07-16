@@ -1,0 +1,36 @@
+@import 'presets';
+
+.row {
+    display: flex;
+    padding: 12px 20vw;
+    justify-content: space-between;
+    min-height: 20vh;
+    box-sizing: border-box;
+}
+
+.row-image {
+    width: 20vw;
+    background-color: $gold;
+    box-sizing: border-box;
+    img {
+        max-width: 100%;
+    }
+}
+
+.row-text {
+    width: 35vw;
+    box-sizing: border-box;
+}
+
+.row-header {
+    font-size: 3em;
+    font-family: $lobster;
+    text-align: center;
+    color: $navy;
+}
+
+.row-break {
+    border-top: 5px solid $gold;
+    width: 20%;
+    margin: auto;
+}
